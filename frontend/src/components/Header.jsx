@@ -7,7 +7,8 @@ import logo from "../assets/logo.png";
 import {useLogoutMutation} from '../slices/usersApiSlice';
 import {logout} from '../slices/authSlice';
 import {useNavigate} from 'react-router-dom';
-import SearchBox from './SearchBox'
+import SearchBox from './SearchBox';
+import { resetCart } from "../slices/cartSlice";
 
 
 const Header = () => {
@@ -23,6 +24,8 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
+      //reset everything when log out
+      dispatch(resetCart());
       navigate('/login')
     } catch (err) {
       console.log(err)
